@@ -15,7 +15,7 @@ public class Module4SimManager : MonoBehaviour
     public float heartBeat = 80f;
     public int maxStepCount;
     public int stepCount = 0;
-    private int sessionCount;
+    public int sessionCount;
     public bool isStarted = false;
     private Transform legPosition;
     private float maxSpeed;
@@ -42,7 +42,7 @@ public class Module4SimManager : MonoBehaviour
         {
             SpeedRepetition();
         }
-
+  
     }
 
     void SpeedRepetition()
@@ -268,7 +268,7 @@ public class Module4SimManager : MonoBehaviour
     }
 
     IEnumerator HeartBeatIncrease()
-        {
+    {
 
             if (module4Manager.equipment == module4Manager.bike)
             {
@@ -334,19 +334,26 @@ public class Module4SimManager : MonoBehaviour
                         }
                         int targetNumber = Random.Range(stablePoint - 1, stablePoint + 2);
                         Debug.Log("Target Number: " + targetNumber);
-                        if (heartBeat < targetNumber)
+                        if (countdown >= 5)
                         {
-                            heartBeat++;
-                            yield return new WaitForSeconds(0.5f);
+                            if (heartBeat < targetNumber)
+                            {
+                                heartBeat++;
+                                yield return new WaitForSeconds(0.5f);
+                            }
+                            else if (heartBeat == targetNumber)
+                            {
+                                yield return new WaitForSeconds(1f);
+                            }
+                            else
+                            {
+                                heartBeat--;
+                                yield return new WaitForSeconds(0.5f);
+                            }
                         }
-                        else if (heartBeat == targetNumber)
+                        else if(countdown < 5)
                         {
-                            yield return new WaitForSeconds(1f);
-                        }
-                        else
-                        {
-                            heartBeat--;
-                            yield return new WaitForSeconds(0.5f);
+                            heartBeat = stablePoint;    
                         }
                         module4UIManager.heartBeatText.text = heartBeat.ToString();
                         yield return new WaitForSeconds(1f);
@@ -358,10 +365,50 @@ public class Module4SimManager : MonoBehaviour
             }
             else if (module4Manager.equipment == module4Manager.footstep)
             {
+            int maxheartBeat = 0;
                 while (stepCount < maxStepCount)
                 {
-                    int increasedFactor = Random.Range(1, 4);
-                    heartBeat++;
+                    if(module4Manager.student == module4Manager.maleStudent)
+                    {
+                        if (sessionCount == 1) 
+                        {
+                            maxheartBeat = 122;
+                        }
+                        if (sessionCount == 2)
+                        {
+                            maxheartBeat = 131;
+                        }
+                        if(sessionCount == 3)
+                        {
+                            maxheartBeat = 148;
+                        }
+
+                    }
+                if (module4Manager.student == module4Manager.femaleStudent)
+                {
+                    if (sessionCount == 1)
+                    {
+                        maxheartBeat = 113;
+                    }
+                    if (sessionCount == 2)
+                    {
+                        maxheartBeat = 122;
+                    }
+                    if (sessionCount == 3)
+                    {
+                        maxheartBeat = 138;
+                    }
+
+                }
+                int increasedFactor = Random.Range(1, 4);
+                    if(heartBeat < maxheartBeat)
+                    {
+                        heartBeat++;
+                    }
+                    if(heartBeat < maxheartBeat && stepCount == maxStepCount-1)
+                    {
+                        heartBeat = maxheartBeat;
+                    } 
                     module4UIManager.heartBeatText.text = heartBeat.ToString();
                     //Debug.Log(heartBeat);
                     if (module4Manager.student == module4Manager.femaleStudent)
@@ -397,8 +444,8 @@ public class Module4SimManager : MonoBehaviour
                 }
             }
 
-        }
-
+    }
+ 
 }
 
 

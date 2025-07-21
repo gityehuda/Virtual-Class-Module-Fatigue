@@ -74,6 +74,11 @@ public class Module4UIManager : MonoBehaviour
             nextButton.SetActive(false);
             prevButton.SetActive(false);
         }
+        if(startButton.activeSelf == true || diffGenderPanel.activeSelf == true)
+        {
+            nextButton.SetActive(false);
+          //  prevButton.SetActive(false);
+        }
     }
 
     void ShowPanel()
@@ -97,12 +102,8 @@ public class Module4UIManager : MonoBehaviour
             sessionPanel.SetActive(false);
         }
 
-        if (conversationPanel.currentPanelIndex == 25 || conversationPanel.currentPanelIndex == 27 || conversationPanel.currentPanelIndex == 29 || startButton.activeSelf == true)
-        {
-            conversationPanel.enabled = false;
-            nextButton.SetActive(false);
-        }
-        else if (conversationPanel.currentPanelIndex == 0 || conversationPanel.currentPanelIndex == 17 || conversationPanel.currentPanelIndex == 26 || conversationPanel.currentPanelIndex == 28 || conversationPanel.currentPanelIndex == 30)
+     
+        if (conversationPanel.currentPanelIndex == 0 || conversationPanel.currentPanelIndex == 17 || conversationPanel.currentPanelIndex == 26 || conversationPanel.currentPanelIndex == 28 || conversationPanel.currentPanelIndex == 30 || startButton.activeSelf == true)
         {
             conversationPanel.enabled = false;
             prevButton.SetActive(false);
@@ -169,7 +170,8 @@ public class Module4UIManager : MonoBehaviour
                     SkiptoQuestion();
                 }
                 conversationPanel.dialogues[conversationPanel.currentDialogueIndex].panels[conversationPanel.currentPanelIndex].SetActive(true);
-                if (startButton.activeSelf == true || conversationPanel.dialogues[conversationPanel.currentDialogueIndex].panels[conversationPanel.currentPanelIndex].activeSelf == true)
+                if (conversationPanel.dialogues[conversationPanel.currentDialogueIndex].panels[conversationPanel.currentPanelIndex].activeSelf == true && (conversationPanel.dialogues[conversationPanel.currentDialogueIndex].panels[conversationPanel.currentPanelIndex] != startButton &&
+                    conversationPanel.dialogues[conversationPanel.currentDialogueIndex].panels[conversationPanel.currentPanelIndex] != diffGenderPanel))
                 {
                     nextButton.SetActive(true);
                 }
@@ -186,7 +188,10 @@ public class Module4UIManager : MonoBehaviour
 
         }
 
-
+        if(sessionPanel.activeSelf == true && conversationPanel.currentPanelIndex < 26)
+        {
+            sessionText.text = "Sesi 1";        
+        }
 
     }
 
