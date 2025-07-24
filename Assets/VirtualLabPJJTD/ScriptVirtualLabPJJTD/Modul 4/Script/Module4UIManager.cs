@@ -65,6 +65,7 @@ public class Module4UIManager : MonoBehaviour
         HideButton();
         ShowPanel();
         GenderManage();
+        DeleteTable();                      
     }
 
     void HideButton()
@@ -112,7 +113,6 @@ public class Module4UIManager : MonoBehaviour
         {
             conversationPanel.enabled = true;
             prevButton.SetActive(true);
-            downloadButton.SetActive(false);
         }
 
         if (selectionPanel.activeSelf == true)
@@ -432,6 +432,29 @@ public class Module4UIManager : MonoBehaviour
                     genderName.text = "Male";
                     manager.genderChoice.transform.GetChild(1).gameObject.SetActive(false);
                 }
+            }
+        }
+    }
+
+    private void DeleteTable()
+    {
+        if (conversationPanel.currentDialogueIndex == 3)
+        {
+            if (uiManager2.BreakTimeTableErgoMale.activeSelf == true)
+            {
+                uiManager2.BreakTimeTableErgoMale.SetActive(false);
+            }
+            else if (uiManager2.BreakTimeTableErgoFemale.activeSelf == true)
+            {
+                uiManager2.BreakTimeTableErgoFemale.SetActive(false);
+            }
+            else if (uiManager2.BreakTimeTableFootstepMale.activeSelf == true)
+            {
+                uiManager2.BreakTimeTableFootstepMale.SetActive(false);
+            }
+            else if (uiManager2.BreakTimeTableFootstepFemale.activeSelf == true)
+            {
+                uiManager2.BreakTimeTableFootstepFemale.SetActive(false);
             }
         }
     }

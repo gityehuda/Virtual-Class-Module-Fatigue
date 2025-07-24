@@ -30,6 +30,7 @@ public class Module4Manager : MonoBehaviour
     public bool isEquipmentSelected = false; 
     public bool isObjectInstantiated = false;
     public bool isObjectIdle = true;
+    private bool isLecturerSpawned = false;
     [SerializeField] private GameObject femaleErgobike;
     [SerializeField] private GameObject femaleFootstep;
     [SerializeField] private GameObject maleErgobike;
@@ -42,6 +43,7 @@ public class Module4Manager : MonoBehaviour
     private GameObject selectedStudent;
     private GameObject selectedEquipment;
     [SerializeField] private Transform spawnPoint;
+    [SerializeField] private Transform spawnPointLecturer;
     [SerializeField] private GameObject submitButtonEquipment;
 
     void Start()
@@ -52,7 +54,13 @@ public class Module4Manager : MonoBehaviour
 
     void Update()
     {
-        ShowObject();    
+        ShowObject();
+        if(isLecturerSpawned == false)
+        {
+            lecturer = Instantiate(lecturer, spawnPointLecturer);
+            isLecturerSpawned = true;  
+        }
+     
         
     }
 

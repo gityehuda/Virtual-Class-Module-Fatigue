@@ -13,6 +13,7 @@ public class Module4UIManager2 : MonoBehaviour
     private Module4Manager manager;
     private Module4UIManager module4UIManager;
     public ConversationPanel conversationPanel;
+    [SerializeField] private Button closeButton;
     private bool isChangedtoErgo;
     private bool isChangedtoFootstep;
     private bool isFirstSimFinished;
@@ -55,6 +56,10 @@ public class Module4UIManager2 : MonoBehaviour
         Evaluation();
         // EvaluationText();
         ResetText();
+        if(conversationPanel.currentDialogueIndex == 3)
+        {
+            closeButton.gameObject.SetActive(false);
+        }
     }
 
     public void Bright()
